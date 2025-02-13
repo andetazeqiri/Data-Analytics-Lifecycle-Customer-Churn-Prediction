@@ -85,10 +85,28 @@ y = df_final['Exited']
 
 #25% of the data is allocated for testing, while 75% is used for training
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=66)
-
+#RandomForestClassifier
 forest = RandomForestClassifier(n_estimators=100) #model will create 100 decision trees in the forest
 forest.fit(X_train,y_train)
+#Logistic Regression
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
 
+#Artificial Neural Network (ANN)
+from sklearn.neural_network import MLPClassifier
+ann = MLPClassifier(hidden_layer_sizes=(100,), max_iter=1000)
+ann.fit(X_train, y_train)
+
+#K nearest neighbours algorithm
+from sklearn.neighbors import KNeighborsClassifier
+# Initialize the KNN model with the desired number of neighbors 
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+#pred = logreg.predict(X_test)
+# pred=ann.predict(X_test)
+# pred=knn.predict(X_test)  
 pred = forest.predict(X_test)
 print(classification_report(y_test,pred))
 print()
